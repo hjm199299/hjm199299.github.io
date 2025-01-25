@@ -104,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('이미지 저장 버튼 클릭!');
             if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) {
             // iOS인 경우
-            window.open(imageUrl, '_blank');
             alert('새 창에서 이미지를 길게 눌러 저장해주세요!');
             } 
             else{
