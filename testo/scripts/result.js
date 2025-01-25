@@ -102,13 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         saveButton.addEventListener('click', () => {
             console.log('이미지 저장 버튼 클릭!');
+            const link = document.createElement('a');
             if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) {
             // iOS인 경우
             alert('새 창에서 이미지를 길게 눌러 저장해주세요!');
+            link.href = image;          // 결과 이미지 경로
+            link.download = 'result.png'; // 다운로드될 파일명
+            link.click();
             } 
             else{
             // a 태그로 다운로드 로직 추가
-            const link = document.createElement('a');
             link.href = image;          // 결과 이미지 경로
             link.download = 'result.png'; // 다운로드될 파일명
             link.click();
