@@ -102,12 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         saveButton.addEventListener('click', () => {
             console.log('이미지 저장 버튼 클릭!');
-    
+            if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) {
+            // iOS인 경우
+            window.open(imageUrl, '_blank');
+            alert('새 창에서 이미지를 길게 눌러 저장해주세요!');
+            } 
+            else{
             // a 태그로 다운로드 로직 추가
             const link = document.createElement('a');
             link.href = image;          // 결과 이미지 경로
             link.download = 'result.png'; // 다운로드될 파일명
             link.click();
+            }
         });
     } else {
         console.error('결과 타입이 유효하지 않습니다.');
@@ -140,21 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyMessage_test = document.getElementById('copyMessage');
 
     testButton.addEventListener('click', () => {
-        console.log('이벤트 진입 성공!')
         try {
-            // 1) 현재 사이트의 도메인 (예: https://example.com)을 가져옴
             const originUrl = window.location.origin;
-    
-            // 2) index.html 경로를 붙여 최종 링크 생성
             const indexUrl = `${originUrl}/index.html`;
-    
-            // 3) 클립보드에 복사
             navigator.clipboard.writeText(indexUrl);
-    
-            // 알림 메시지 표시
             copyMessage.style.display = 'block';
-            
-            // 1초 뒤에 사라지게 설정
             setTimeout(() => {
                 copyMessage.style.display = 'none';
             }, 1000);
