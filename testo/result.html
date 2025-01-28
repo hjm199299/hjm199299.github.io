@@ -149,18 +149,19 @@
             transition: opacity 0.3s ease;
         }
         .result-summary {
-              width: 214px;
-              height: 30px;
+              width: 192px;
+              height: 32px;
               display: flex;
               flex-direction: row;
               justify-content: center;
               align-items: center;
-              margin: 20px 60px 25px 60px;
-              border: solid 1.1px rgba(0, 0, 0, 0.6);
+              margin: 17px 75px 18px 75px;
+              padding: 5px 10px;
+              border: solid 2px #333;
         }
         .summary_font{
             font-family: 'Galmuri9';
-            font-size: 20px;
+            font-size: 16px;
             font-weight: normal;
             font-stretch: normal;
             font-style: normal;
@@ -183,7 +184,7 @@
             <div class="result_head_2">
                 <span class="text_suffix">에겐/테토 유형 결과는!</span>
             </div>
-            <div class="result-summary"><span class="summary_font">에겐남:에겐 지수</span></div>
+            <div class="result-summary"><span class="summary_font" id="subTitle"></span></div>
             <img id="resultImage" class="result_image" alt="결과 이미지">
             <!-- 버튼 영역 -->
             <div class="button-container">
