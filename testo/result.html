@@ -8,7 +8,7 @@
     <style>
         .result-container {
             padding-left: env(safe-area-inset-left);
-            padding-top: calc(env(safe-area-inset-top) + 40px);
+            padding-top: calc(env(safe-area-inset-top) + 50px);
             width: 375px; /* 고정된 너비 */
             max-width: 100%; /* 모바일 화면에서도 적응 가능 */
             margin: 0 auto; /* 가운데 정렬 */
@@ -24,7 +24,7 @@
         
         body {
             padding-left: env(safe-area-inset-left);
-            padding-top: calc(env(safe-area-inset-top) + 40px);
+            padding-top: calc(env(safe-area-inset-top) + 50px);
             margin: 0;
             font-family: 'Pretendard Variable', sans-serif;
             background-color: #fff; /* 필요 시 변경 가능 */
@@ -140,6 +140,19 @@
             transition: opacity 0.3s ease;
         }
 
+        .result-summary {
+              width: 214px;
+              height: 30px;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              margin: 25px 0px 25px 0px;
+              padding: 4.3px 17.2px;
+              border: solid 1.1px rgba(0, 0, 0, 0.6);
+        }
+                        
+
     </style>
 </head>
 
@@ -154,6 +167,7 @@
             <div class="result_head_2">
                 <span class="text_suffix">에겐/테토 유형 결과는!</span>
             </div>
+            <div class="result-summary></div>
             <img id="resultImage" class="result_image" alt="결과 이미지">
             <!-- 버튼 영역 -->
             <div class="button-container">
