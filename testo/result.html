@@ -14,18 +14,10 @@
             font-weight: normal;
             font-style: normal;
         }
-        
-        body {
-            margin: 0;
-            font-family: 'Pretendard Variable', sans-serif;
-            background-color: #fff; /* 필요 시 변경 가능 */
-            overflow-y: scroll; /* 항상 스크롤 표시 */
-            min-height: 100vh; /* 화면 최소 높이 */
-        }
-
         .result-container {
             width: 375px; /* 고정된 너비 */
             max-width: 100%; /* 모바일 화면에서도 적응 가능 */
+            padding: 0px 20px 30px 20px;
             margin: 0 auto; /* 가운데 정렬 */
             height: auto; /* 콘텐츠 높이에 맞춤 */
             border: 1px solid #e0e0e0; /* 선택적: 디바이스 경계 표시 */
@@ -34,9 +26,17 @@
             box-sizing: border-box; /* 패딩 포함된 크기 계산 */
             -ms-overflow-style: none; /* IE, Edge */
             scrollbar-width: none;    /* Firefox */
-            padding: calc(env(safe-area-inset-top)+50px) 20px 30px 20px;
         }
-        
+        body {
+            padding-left: env(safe-area-inset-left);
+            padding-top: calc(env(safe-area-inset-top) + 90px);
+            margin: 0;
+            font-family: 'Pretendard Variable', sans-serif;
+            background-color: #fff; /* 필요 시 변경 가능 */
+            overflow-y: scroll; /* 항상 스크롤 표시 */
+            min-height: 100vh; /* 화면 최소 높이 */
+        }
+
         .result_image {
             width: 335px;
             height: 234px;
