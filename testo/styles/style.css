@@ -479,7 +479,7 @@ html, body {
 
 @font-face {
     font-family: 'GoryeongStrawberry';
-    src: url('../assets/fonts/GoryeongStrawberry.ttf') format('truetype');
+    src: url('../assets/fonts/GoryeongStrawberry.ttf') format('truetype'),
     src: url('../assets/fonts/GoryeongStrawberry.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
