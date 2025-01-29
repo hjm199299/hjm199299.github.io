@@ -61,6 +61,8 @@ const questions = [
     ] }
 ];
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const questionTitle = document.getElementById('questionTitle');
     const answerList = document.getElementById('answerList');
@@ -70,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuestionIndex = 0;
     let ePoint = 0, tPoint = 0, kPoint = 0;
 
-    // 현재 선택된 값 저장
-    let selectedIndex = null;  
+    // 사용자가 선택한 답변 저장 배열 (각 질문의 선택지 인덱스 저장)
+    let userAnswers = new Array(questions.length).fill(null);
 
     // 질문 렌더링 함수
     function renderQuestion(index) {
@@ -82,9 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('해당 index에 대한 질문을 찾을 수 없습니다:', index);
             return;
         }
-
-        // 디버깅: 현재 렌더링되는 질문 확인
-        console.log('현재 질문:', question);
 
         // 질문 텍스트 렌더링
         questionTitle.textContent = question.text;
@@ -134,22 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.appendChild(label); // 리스트 항목에 라벨 추가
             answerList.appendChild(li); // 전체 리스트에 항목 추가
-        });
 
-        // 디버깅: 렌더링된 리스트 확인
-        console.log('렌더링된 리스트:', answerList.innerHTML);
+            // 이전에 선택한 답변이 있으면 체크 표시
+            if (userAnswers[index] === idx) {
+                radio.checked = true;
+                label.classList.add('checked');
+            }
 
-        // 다음 버튼 초기화
-        nextButton.disabled = true;
-        nextButton.classList.remove('btn_next_active');
-        nextButton.classList.add('btn_main_disable');
-
-        // 선택된 값 초기화
-        selectedIndex = null;
-
-        // 라디오 버튼 이벤트 리스너 추가
-        const radios = document.querySelectorAll('input[name="question"]');
-        radios.forEach((radio, idx) => {
+            // 라디오 버튼 클릭 시 선택값 저장
             radio.addEventListener('change', () => {
                 document.querySelectorAll('.custom-radio').forEach((label) => {
                     label.classList.remove('checked');
@@ -158,8 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 선택된 라디오 버튼의 부모에 .checked 추가
                 if (radio.checked) {
                     radio.closest('.custom-radio').classList.add('checked');
-                    selectedIndex = idx;  // 선택된 값 저장
                 }
+
+                // 선택된 값 즉시 업데이트
+                userAnswers[currentQuestionIndex] = idx;
 
                 // 다음 버튼 활성화
                 nextButton.disabled = false;
@@ -167,6 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextButton.classList.remove('btn_main_disable');
             });
         });
+
+        // 다음 버튼 비활성화 초기화
+        nextButton.disabled = userAnswers[currentQuestionIndex] === null;
     }
 
     // 초기 질문 렌더링
@@ -178,22 +174,41 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'test_1_name.html';
         } else {
             currentQuestionIndex--;
+
+            // 기존 선택한 답변의 점수를 제거
+            let previousChoiceIndex = userAnswers[currentQuestionIndex];
+            if (previousChoiceIndex !== null) {
+                const previousChoice = questions[currentQuestionIndex].choices[previousChoiceIndex];
+                ePoint -= previousChoice.ePoint;
+                tPoint -= previousChoice.tPoint;
+                kPoint -= previousChoice.kPoint;
+            }
+
             renderQuestion(currentQuestionIndex);
         }
     });
 
-    // 다음 버튼 이벤트 (여기서 점수 추가!)
+    // 다음 버튼 이벤트
     nextButton.addEventListener('click', () => {
-        // 라디오 버튼 선택 여부 확인
-        if (selectedIndex === null) {
+        // 선택된 답변이 없는 경우 방지
+        if (userAnswers[currentQuestionIndex] === null) {
             console.log('답변을 선택하세요.');
             return; // 선택된 라디오 버튼이 없으면 이벤트 종료
         }
 
         // 선택된 답변의 점수 가져오기
-        const selectedChoice = questions[currentQuestionIndex].choices[selectedIndex];
+        const selectedChoice = questions[currentQuestionIndex].choices[userAnswers[currentQuestionIndex]];
 
-        // 점수 계산 (여기서만 점수 추가!)
+        // 기존 선택값이 있다면 점수 제거 (이전 선택이 바뀌었을 경우)
+        let previousChoiceIndex = userAnswers[currentQuestionIndex];
+        if (previousChoiceIndex !== null && previousChoiceIndex !== userAnswers[currentQuestionIndex]) {
+            const previousChoice = questions[currentQuestionIndex].choices[previousChoiceIndex];
+            ePoint -= previousChoice.ePoint;
+            tPoint -= previousChoice.tPoint;
+            kPoint -= previousChoice.kPoint;
+        }
+
+        // 점수 계산 (현재 선택한 값만 추가)
         ePoint += selectedChoice.ePoint;
         tPoint += selectedChoice.tPoint;
         kPoint += selectedChoice.kPoint;
@@ -219,12 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (kPoint > 20) {
                     resultType = 'egen_male_1';
                 } else if (kPoint > 10) {
-                    resultType = 'egen_female_2';
+                    resultType = 'egen_male_2';
                 } else {
                     resultType = 'egen_male_3';
                 }
             } else {
-                resultType = 'egen_male_3';
+                resultType = 'teto_male_3';
             }
 
             // 결과 페이지로 이동
@@ -232,4 +247,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
