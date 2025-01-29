@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         questionImageContainer.innerHTML = ''; // 기존 이미지 제거
 
         const questionImage = document.createElement('img');
-        questionImage.src = `assets/images/img_wo${index + 1}.png`;
+        questionImage.src = `assets/images/img_man${index + 1}.png`;
         questionImage.alt = `Question ${index + 1}`;
         questionImage.classList.add('question-img');
         questionImageContainer.appendChild(questionImage);
