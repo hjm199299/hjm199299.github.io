@@ -2,8 +2,8 @@ const questions = [
     { text: '목소리가 큰 편인가요?', choices: [
         { text: '매우 그렇다 (난 확성기다)', ePoint: 0, tPoint:3, kPoint:3 },
         { text: '약간 그렇다 (가끔 볼륨 조절 실패)', ePoint: 1, tPoint:2, kPoint:1 },
-        { text: '약간 아니다 (ASMR)', ePoint: 2, tPoint:1, kPoint:1},
-        { text: '전혀 아니다 (숨소리)', ePoint: 3, tPoint:0, kPoint:3 }
+        { text: '약간 아니다 (사회적 데시벨 준수)', ePoint: 2, tPoint:1, kPoint:1},
+        { text: '전혀 아니다 (ASMR)', ePoint: 3, tPoint:0, kPoint:3 }
     ] },
     { text: '원칙을 따르는 편인가요?', choices: [
         { text: '매우 그렇다 (난 원칙의 화신)', ePoint: 3, tPoint: 0, kPoint: 3 },
@@ -11,7 +11,7 @@ const questions = [
         { text: '약간 아니다 (있으면 좋고 없으면 말고)', ePoint: 1, tPoint: 2, kPoint: 1 },
         { text: '전혀 아니다 (난 자유롭고 싶어)', ePoint: 0, tPoint: 3, kPoint: 3 }
     ] },
-    { text: '혼자보다 친구들과 다니는 게 편한가요?', choices: [
+    { text: '혼자보다 친구들과 다니는 편인가요?', choices: [
         { text: '매우 그렇다', ePoint: 3, tPoint: 0, kPoint: 3 },
         { text: '약간 그렇다', ePoint: 2, tPoint: 1, kPoint: 1 },
         { text: '약간 아니다', ePoint: 1, tPoint: 2, kPoint: 1 },
@@ -23,35 +23,35 @@ const questions = [
         { text: '약간 아니다', ePoint: 2, tPoint: 1, kPoint: 1 },
         { text: '전혀 아니다', ePoint: 3, tPoint: 0, kPoint: 3 }
     ] },
-    { text: '남들에게 부탁을 잘 하는 편인가요?', choices: [
+    { text: '남들에게 거절을 잘 하는 편인가요?', choices: [
         { text: '매우 그렇다', ePoint: 3, tPoint: 0, kPoint: 3 },
         { text: '약간 그렇다', ePoint: 2, tPoint: 1, kPoint: 1 },
         { text: '약간 아니다', ePoint: 1, tPoint: 2, kPoint: 1 },
         { text: '전혀 아니다', ePoint: 0, tPoint: 3, kPoint: 3 }
     ] },
     { text: '내 평균 식사량은?', choices: [
-        { text: '1.5 공기 이상', ePoint: 0, tPoint: 3, kPoint: 3 },
-        { text: '한 공기', ePoint: 1, tPoint: 2, kPoint: 1 },
-        { text: '0.5 공기', ePoint: 2, tPoint: 1, kPoint: 1 },
-        { text: '공기', ePoint: 3, tPoint: 0, kPoint: 3 }
+        { text: '2인분 이상', ePoint: 0, tPoint: 3, kPoint: 3 },
+        { text: '1.5인분', ePoint: 1, tPoint: 2, kPoint: 1 },
+        { text: '1인분', ePoint: 2, tPoint: 1, kPoint: 1 },
+        { text: '0.5인분', ePoint: 3, tPoint: 0, kPoint: 3 }
     ] },
-    { text: '가장 선호하는 운동은 무엇인가요?', choices: [
-        { text: '웨이트', ePoint: 0, tPoint: 3, kPoint: 3 },
-        { text: '러닝', ePoint: 1, tPoint: 2, kPoint: 1 },
-        { text: '필라테스', ePoint: 2, tPoint: 1, kPoint: 1 },
-        { text: '숨쉬기', ePoint: 2, tPoint: 1, kPoint: 1 }
+    { text: '운동을 하는 이유가 무엇인가요?', choices: [
+        { text: '근력향상', ePoint: 0, tPoint: 3, kPoint: 3 },
+        { text: '체력증진', ePoint: 1, tPoint: 2, kPoint: 1 },
+        { text: '몸매관리', ePoint: 3, tPoint: 0, kPoint: 3 },
+        { text: '안함', ePoint: 2, tPoint: 1, kPoint: 1 }
     ] },
     { text: '가장 선호하는 취미는 무엇인가요?', choices: [
-        { text: '게임', ePoint: 0, tPoint: 3, kPoint: 3 },
-        { text: '넷플릭스', ePoint: 1, tPoint: 2, kPoint: 1 },
-        { text: '뜨개질', ePoint: 2, tPoint: 1, kPoint: 1 },
-        { text: '덕질', ePoint: 3, tPoint: 0, kPoint: 3 }
+        { text: '자기계발 (투자 공부, 스피킹 등)', ePoint: 0, tPoint: 3, kPoint: 3 },
+        { text: '액티비티 (캠핑, 등산 등)', ePoint: 1, tPoint: 2, kPoint: 1 },
+        { text: '만들기 (베이킹, 뜨개질 등)', ePoint: 2, tPoint: 1, kPoint: 1 },
+        { text: '쇼핑 (패션, 문구 등)', ePoint: 3, tPoint: 0, kPoint: 3 }
     ] },
-    { text: '주식 및 투자에 관심이 많은가요?', choices: [
-        { text: '매우 그렇다', ePoint: 0, tPoint: 3, kPoint: 3 },
-        { text: '약간 그렇다', ePoint: 1, tPoint: 2, kPoint: 1 },
-        { text: '약간 아니다', ePoint: 2, tPoint: 1, kPoint: 1 },
-        { text: '전혀 아니다', ePoint: 3, tPoint: 0, kPoint: 3 }
+    { text: '코인 총 투자 금액이 얼마인가요?', choices: [
+        { text: '천만 원대 이상', ePoint: 0, tPoint: 3, kPoint: 3 },
+        { text: '백만 원대', ePoint: 1, tPoint: 2, kPoint: 1 },
+        { text: '십만 원대', ePoint: 2, tPoint: 1, kPoint: 1 },
+        { text: '안 함', ePoint: 3, tPoint: 0, kPoint: 3 }
     ] },
     { text: '사랑스럽다는 말을 종종 듣나요?', choices: [
         { text: '매우 그렇다', ePoint: 3, tPoint: 0, kPoint: 3 },
