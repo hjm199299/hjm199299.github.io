@@ -11,7 +11,7 @@ const questions = [
         { text: '약간 아니다', ePoint: 1, tPoint: 2, kPoint: 1 },
         { text: '전혀 아니다', ePoint: 0, tPoint: 3, kPoint: 3 }
     ] },
-    { text: '여사친이 포함된 무리를 자주 만나나요?', choices: [
+    { text: '여사친이 포함된 모임을 자주 가지나요?', choices: [
         { text: '매우 그렇다', ePoint: 3, tPoint: 0, kPoint: 3 },
         { text: '약간 그렇다', ePoint: 2, tPoint: 1, kPoint: 1 },
         { text: '약간 아니다', ePoint: 1, tPoint: 2, kPoint: 1 },
@@ -29,19 +29,19 @@ const questions = [
         { text: '약간 아니다', ePoint: 1, tPoint: 2, kPoint: 1 },
         { text: '전혀 아니다', ePoint: 0, tPoint: 3, kPoint: 3 }
     ] },
-    { text: '인스타 게시물 개수는 몇 개 인가요?', choices: [
-        { text: '아마추어 인플루언서 (11개 이상)', ePoint: 3, tPoint: 0, kPoint: 3 },
-        { text: '기록은 남기는 편 (5-10개)', ePoint: 2, tPoint: 1, kPoint: 1 },
-        { text: '가끔 올리는 편 (2-3개)', ePoint: 1, tPoint: 2, kPoint: 1 },
-        { text: '눈팅형 (계정 없음-1개)', ePoint: 0, tPoint: 3, kPoint: 3 }
+    { text: '인스타 업로드 주기는? (스토리 포함)', choices: [
+        { text: '아마추어 인플루언서 (매일)', ePoint: 3, tPoint: 0, kPoint: 3 },
+        { text: '기록은 남기는 편 (한 달)', ePoint: 2, tPoint: 1, kPoint: 1 },
+        { text: '가끔 올리는 편 (일 년)', ePoint: 1, tPoint: 2, kPoint: 1 },
+        { text: '안 올리는 편', ePoint: 0, tPoint: 3, kPoint: 3 }
     ] },
     { text: '당신의 이상형은? (복수 선택 안 됨)', choices: [
-        { text: '돈 잘 버는 사람', ePoint: 3, tPoint: 0, kPoint: 3 },
+        { text: '능력 좋은 사람', ePoint: 3, tPoint: 0, kPoint: 3 },
         { text: '예쁜 사람', ePoint: 0, tPoint: 3, kPoint: 3 },
         { text: '몸매 좋은 사람', ePoint: 0, tPoint: 3, kPoint: 3 },
         { text: '성격 좋은 사람', ePoint: 2, tPoint: 1, kPoint: 1 }
     ] },
-    { text: '카페 투어를 좋아하나요?', choices: [
+    { text: '분위기 좋은 카페를 자주 가시나요?', choices: [
         { text: '매우 그렇다', ePoint: 3, tPoint: 0, kPoint: 3 },
         { text: '약간 그렇다', ePoint: 2, tPoint: 1, kPoint: 1 },
         { text: '약간 아니다', ePoint: 1, tPoint: 2, kPoint: 1 },
@@ -53,11 +53,11 @@ const questions = [
         { text: '약간 아니다', ePoint: 2, tPoint: 1, kPoint: 1 },
         { text: '전혀 아니다', ePoint: 3, tPoint: 0, kPoint: 3 }
     ] },
-    { text: '음악 취향을 선택해 주세요!', choices: [
-        { text: '인디 밴드', ePoint: 3, tPoint: 0, kPoint: 3 },
-        { text: '힙합', ePoint: 2, tPoint: 1, kPoint: 1 },
+    { text: '노래방에서 주로 어떤 노래를 부르나요?', choices: [
+        { text: '랩/힙합', ePoint: 0, tPoint: 3, kPoint: 3 },
         { text: '발라드', ePoint: 1, tPoint: 2, kPoint: 1 },
-        { text: '취향 없음', ePoint: 0, tPoint: 3, kPoint: 3 }
+        { text: '락/메탈', ePoint: 2, tPoint: 1, kPoint: 1 },
+        { text: 'K-POP', ePoint: 3, tPoint: 0, kPoint: 3 }
     ] }
 ];
 
