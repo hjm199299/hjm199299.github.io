@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         teto_female_3: {
             image: '../assets/images/teto_female_3.png',
             title: '상대방의 의견을 존중하면서도, 자신의 생각을 분명하게 표현하세요! 솔직하고 당당한 모습은 상대방에게 매력적으로 다가갈 뿐만 아니라, 서로를 더 잘 이해할 수 있도록 도와줄 거예요.',
-            description: '털털하고 쿨한 매력을 가지고 있는 게 가장 큰 특징이에요. 다소 거칠어 보일 수 있으나 섬세한 면이 있어서 긍정적인 대인 관계를 가지고 있어요.  겉으로는 강하고 당당한 모습을 유지하지만 가끔 유리 멘탈이 드러날 때가 있어요. 특히 연애에서는 상대에게 너무 의지하지 않으려는 성향이 있으며 때때로 용기 있게 상대를 리드하는 모습을 보여줘요. ',
+            description: '털털하고 쿨한 매력을 가지고 있는 게 가장 큰 특징이에요. 눈치가 빠르기 때문에 모든 상황을 쿨하게 넘기기 어려운 순간도 있지만, 겉으로는 강하고 당당한 모습을 유지하려해요. 그러나 속마음은 섬세한 면이 있어서 가끔 유리 멘탈이 드러날 때가 있어요. 특히 연애에서는 상대에게 너무 의지하지 않으려는 성향이 있으며 상대를 리드하는 모습을 보여줘요. ',
             imageFit: '../assets/images/teto_female_style_3.png',
             imageStory: '../assets/images/teto_female_story_3.png',
             subtitle: '테토녀 : 테토 지수 下'
@@ -118,33 +118,108 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log(resultType)
     if (results[resultType]) {
-        const { image, title, description ,imageFit, imageStory, subtitle} = results[resultType];
-        document.getElementById('resultImage').src = image;
-        document.getElementById('resultDescription').textContent = description;
-        document.getElementById('styleImage').src = imageFit;
-        document.getElementById('resultTip').textContent = title;
-        document.getElementById('subTitle').textContent = subtitle;
+        const { image, title, description, imageFit, imageStory, subtitle } = results[resultType];
+        document.getElementById("resultImage").src = image;
+        document.getElementById("resultDescription").textContent = description;
+        document.getElementById("styleImage").src = imageFit;
+        document.getElementById("resultTip").textContent = title;
+        document.getElementById("subTitle").textContent = subtitle;
+    
+        const saveButton = document.getElementById("saveButton");
+    
+        saveButton.addEventListener("click", () => {
+            console.log("이미지 저장 버튼 클릭!");
+    
+            const canvas = document.getElementById("resultCanvas");
+            const ctx = canvas.getContext("2d");
+    
+            const userName = localStorage.getItem("userName") || "유저";
+            const downloadImage = imageStory;
+    
+            // ✅ 이미지 객체 생성
+            const bgImage = new Image();
+            bgImage.crossOrigin = "anonymous"; // CORS 문제 방지
+            bgImage.src = downloadImage;
+    
+            // ✅ 이미지 로드 후 실행 (onload 이벤트 활용)
+            bgImage.onload = function () {
+                // ✅ 캔버스 크기 원본 이미지 크기로 설정
+                canvas.width = bgImage.width;
+                canvas.height = bgImage.height;
+    
+                // ✅ 배경 이미지 그리기
+                ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+    
+                // ✅ 닉네임 포함 텍스트 박스
+                const text = `${userName}님의 에겐/테토 유형 결과는?`;
+    
+                ctx.font = "900 30.6px Pretendard";  // ✅ CSS 적용
+                ctx.textAlign = "center";
+                ctx.fillStyle = "#222"; // 텍스트 색상
+                ctx.letterSpacing = "-1.22px"; // ✅ letter-spacing (캔버스에서 직접 설정은 불가능하지만 대체 구현 가능)
+                ctx.lineHeight = 1.5; // ✅ line-height (텍스트 배치로 구현)
+                
+                const textWidth = ctx.measureText(text).width;
+                const padding = 30;  // 원래 CSS padding과 유사한 여백
+                const boxWidth = textWidth + padding * 2;
+                const boxHeight = 66;  // ✅ 높이 CSS와 동일하게
+                const boxX = (canvas.width - boxWidth) / 2;
+                const boxY = 49; // 배경 이미지 아래 위치
 
-        saveButton.addEventListener('click', () => {
-            console.log('이미지 저장 버튼 클릭!');
-            const link = document.createElement('a');
-            if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) {
-            // iOS인 경우
-            alert('새 창에서 이미지를 길게 눌러 저장해주세요!');
-            link.href = imageStory;          // 결과 이미지 경로
-            link.download = 'result.png'; // 다운로드될 파일명
-            link.click();
-            } 
-            else{
-            // a 태그로 다운로드 로직 추가
-            link.href = imageStory;          // 결과 이미지 경로
-            link.download = 'result.png'; // 다운로드될 파일명
-            link.click();
-            }
+                const gradient = ctx.createLinearGradient(boxX, boxY, boxX, boxY + boxHeight);
+                gradient.addColorStop(0.0, "rgba(240, 240, 240, 0.9)"); // 위쪽 그림자
+                gradient.addColorStop(0.02, "rgba(250, 250, 250, 1)"); // 중앙 투명
+                gradient.addColorStop(0.1, "rgba(255, 255, 255, 1)"); // 중앙 투명
+                gradient.addColorStop(0.5, "rgba(255, 255, 255, 1)"); // 중앙 투명
+                gradient.addColorStop(0.9, "rgba(255, 255, 255, 1)"); // 중앙 투명
+                gradient.addColorStop(0.97, "rgba(240, 240, 240, 1)"); // 중앙 투명
+                gradient.addColorStop(1.0, "rgba(230, 230, 230, 0.8)"); // 아래쪽 그림자
+
+                    
+                // ✅ **박스 스타일 적용 (CSS 변환)**
+                ctx.fillStyle = gradient;; // 배경색
+                ctx.strokeStyle = "#ada9a9"; // 테두리 색상
+                ctx.lineWidth = 0.3; // 테두리 두께
+                ctx.shadowColor = "rgba(139, 138, 138, 0.1)"; // box-shadow 색상
+                ctx.shadowBlur = 7.7; // box-shadow 흐림 정도
+                ctx.shadowOffsetX = -1; // box-shadow X 위치
+                ctx.shadowOffsetY = 3; // box-shadow Y 위치
+    
+                ctx.beginPath();
+                ctx.roundRect(boxX, boxY, boxWidth, boxHeight, 50); // 둥근 박스 (border-radius 30px 적용)
+                ctx.fill();
+                ctx.stroke();
+    
+                // ✅ **텍스트 스타일 적용**
+                ctx.shadowColor = "transparent"; // 그림자 초기화 (텍스트에는 적용 안 되도록)
+                ctx.fillStyle = "#222";
+                ctx.fillText(text, canvas.width / 2, boxY + boxHeight / 2 + 10); // 중앙 정렬
+    
+                // ✅ 이미지 다운로드 링크 생성
+                const link = document.createElement("a");
+                link.href = canvas.toDataURL("image/png");
+                link.download = "result.png";
+    
+                if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) {
+                    alert("새 창에서 이미지를 길게 눌러 저장해주세요!");
+                    document.body.appendChild(link); // iOS에서 다운로드를 위해 링크 추가
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            };
+    
+            // ✅ 이미지 로드 실패 시 에러 핸들링
+            bgImage.onerror = function () {
+                console.error("배경 이미지 로드 실패: " + downloadImage);
+                alert("이미지를 불러오는 데 실패했습니다. 다시 시도해주세요.");
+            };
         });
-    } else {
-        console.error('결과 타입이 유효하지 않습니다.');
     }
+    
 
     const shareButton = document.getElementById('shareButton');
     const copyMessage = document.getElementById('copyMessage');
