@@ -1,16 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const userName = localStorage.getItem('userName'); // 저장된 이름 가져오기
-    const nameContainer = document.querySelector('.btn_name_result');
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    let sharedUserName = urlParams.get("user"); // 공유된 닉네임 가져오기
+    let localUserName = localStorage.getItem("userName"); // 기존에 입력한 닉네임 가져오기
+    let resultType = urlParams.get("type"); // 현재 결과 유형 가져오기
 
-    const resultImage = document.getElementById('resultImage');
-    resultImage.innerHTML = ''; // 기존 이미지 제거
-    const styleImage = document.getElementById('styleImage');
-    styleImage.innerHTML = ''; // 기존 이미지 제거
+    let finalUserName = localUserName || sharedUserName || "유저"; // 최종 닉네임 결정
 
-    if (userName && nameContainer) {
-        nameContainer.textContent = userName; // 이름 표시
+    const nameContainer = document.querySelector(".btn_name_result");
+    if (finalUserName) {
+        nameContainer.textContent = finalUserName;
     } else {
-        nameContainer.textContent = '유저 이름 없음'; // 이름이 없을 경우 기본값
+        nameContainer.textContent = "유저 이름 없음";
     }
 
     const results = {
@@ -112,59 +113,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const resultType = urlParams.get('type');
-    const saveButton = document.getElementById('saveButton');
-
-    console.log(resultType)
     if (results[resultType]) {
         const { image, title, description, imageFit, imageStory, subtitle } = results[resultType];
+
         document.getElementById("resultImage").src = image;
         document.getElementById("resultDescription").textContent = description;
         document.getElementById("styleImage").src = imageFit;
         document.getElementById("resultTip").textContent = title;
         document.getElementById("subTitle").textContent = subtitle;
-    
-        const saveButton = document.getElementById("saveButton");
-    
-        saveButton.addEventListener("click", () => {
+
+        document.getElementById("saveButton").addEventListener("click", () => {
             console.log("이미지 저장 버튼 클릭!");
-    
+
             const canvas = document.getElementById("resultCanvas");
             const ctx = canvas.getContext("2d");
-    
-            const userName = localStorage.getItem("userName") || "유저";
-            const downloadImage = imageStory;
-    
-            // ✅ 이미지 객체 생성
+
             const bgImage = new Image();
-            bgImage.crossOrigin = "anonymous"; // CORS 문제 방지
-            bgImage.src = downloadImage;
-    
-            // ✅ 이미지 로드 후 실행 (onload 이벤트 활용)
+            bgImage.crossOrigin = "anonymous";
+            bgImage.src = imageStory;
+
             bgImage.onload = function () {
-                // ✅ 캔버스 크기 원본 이미지 크기로 설정
                 canvas.width = bgImage.width;
                 canvas.height = bgImage.height;
-    
-                // ✅ 배경 이미지 그리기
                 ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-    
-                // ✅ 닉네임 포함 텍스트 박스
-                const text = `${userName}님의 에겐/테토 유형 결과는?`;
-    
-                ctx.font = "900 30.6px Pretendard";  // ✅ CSS 적용
+
+                const text = `${finalUserName}님의 에겐/테토 유형 결과는?`;
+
+                ctx.font = "900 30.6px Pretendard";
                 ctx.textAlign = "center";
-                ctx.fillStyle = "#222"; // 텍스트 색상
-                ctx.letterSpacing = "-1.22px"; // ✅ letter-spacing (캔버스에서 직접 설정은 불가능하지만 대체 구현 가능)
-                ctx.lineHeight = 1.5; // ✅ line-height (텍스트 배치로 구현)
-                
+                ctx.fillStyle = "#222";
+                ctx.lineHeight = 1.5;
+
                 const textWidth = ctx.measureText(text).width;
-                const padding = 30;  // 원래 CSS padding과 유사한 여백
+                const padding = 30;
                 const boxWidth = textWidth + padding * 2;
-                const boxHeight = 66;  // ✅ 높이 CSS와 동일하게
+                const boxHeight = 66;
                 const boxX = (canvas.width - boxWidth) / 2;
-                const boxY = 49; // 배경 이미지 아래 위치
+                const boxY = 49;
 
                 const gradient = ctx.createLinearGradient(boxX, boxY, boxX, boxY + boxHeight);
                 gradient.addColorStop(0.0, "rgba(240, 240, 240, 0.9)"); // 위쪽 그림자
@@ -174,35 +159,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 gradient.addColorStop(0.9, "rgba(255, 255, 255, 1)"); // 중앙 투명
                 gradient.addColorStop(0.97, "rgba(240, 240, 240, 1)"); // 중앙 투명
                 gradient.addColorStop(1.0, "rgba(230, 230, 230, 0.8)"); // 아래쪽 그림자
+                
+                ctx.fillStyle = gradient;
+                ctx.strokeStyle = "#ada9a9";
+                ctx.lineWidth = 0.3;
+                ctx.shadowColor = "rgba(139, 138, 138, 0.1)";
+                ctx.shadowBlur = 7.7;
+                ctx.shadowOffsetX = -1;
+                ctx.shadowOffsetY = 3;
 
-                    
-                // ✅ **박스 스타일 적용 (CSS 변환)**
-                ctx.fillStyle = gradient;; // 배경색
-                ctx.strokeStyle = "#ada9a9"; // 테두리 색상
-                ctx.lineWidth = 0.3; // 테두리 두께
-                ctx.shadowColor = "rgba(139, 138, 138, 0.1)"; // box-shadow 색상
-                ctx.shadowBlur = 7.7; // box-shadow 흐림 정도
-                ctx.shadowOffsetX = -1; // box-shadow X 위치
-                ctx.shadowOffsetY = 3; // box-shadow Y 위치
-    
                 ctx.beginPath();
-                ctx.roundRect(boxX, boxY, boxWidth, boxHeight, 50); // 둥근 박스 (border-radius 30px 적용)
+                ctx.roundRect(boxX, boxY, boxWidth, boxHeight, 50);
                 ctx.fill();
                 ctx.stroke();
-    
-                // ✅ **텍스트 스타일 적용**
-                ctx.shadowColor = "transparent"; // 그림자 초기화 (텍스트에는 적용 안 되도록)
+
+                ctx.shadowColor = "transparent";
                 ctx.fillStyle = "#222";
-                ctx.fillText(text, canvas.width / 2, boxY + boxHeight / 2 + 10); // 중앙 정렬
-    
-                // ✅ 이미지 다운로드 링크 생성
+                ctx.fillText(text, canvas.width / 2, boxY + boxHeight / 2 + 10);
+
                 const link = document.createElement("a");
                 link.href = canvas.toDataURL("image/png");
                 link.download = "result.png";
-    
+
                 if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) {
                     alert("새 창에서 이미지를 길게 눌러 저장해주세요!");
-                    document.body.appendChild(link); // iOS에서 다운로드를 위해 링크 추가
+                    document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
                 } else {
@@ -211,61 +192,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.removeChild(link);
                 }
             };
-    
-            // ✅ 이미지 로드 실패 시 에러 핸들링
+
             bgImage.onerror = function () {
-                console.error("배경 이미지 로드 실패: " + downloadImage);
+                console.error("배경 이미지 로드 실패: " + imageStory);
                 alert("이미지를 불러오는 데 실패했습니다. 다시 시도해주세요.");
             };
         });
     }
-    
 
-    const shareButton = document.getElementById('shareButton');
-    const copyMessage = document.getElementById('copyMessage');
+    // ✅ **결과 공유 버튼 클릭 이벤트 (URL에 type 값 포함)**
+    document.getElementById("shareButton").addEventListener("click", () => {
+        let currentUserName = localStorage.getItem("userName") || "테스트";
+        let currentUrl = `${window.location.origin}${window.location.pathname}?type=${resultType}&user=${encodeURIComponent(currentUserName)}`;
 
-    shareButton.addEventListener('click', () => {
-        console.log('이벤트 진입 성공!')
-        try {
-            const currentUrl = window.location.href; // 현재 페이지 URL
-            navigator.clipboard.writeText(currentUrl);
-            
-            // 알림 메시지 표시
-            copyMessage.style.display = 'block';
-            
-            // 1초 뒤에 사라지게 설정
-            setTimeout(() => {
-                copyMessage.style.display = 'none';
-            }, 1000);
-
-        } catch (err) {
-            console.error('URL 복사 실패:', err);
-            alert('URL 복사 실패! 브라우저가 지원하지 않을 수 있습니다.');
-        }
+        navigator.clipboard.writeText(currentUrl)
+            .then(() => alert("결과 링크가 복사되었습니다!"))
+            .catch(err => console.error("복사 실패:", err));
     });
 
-    const testButton = document.getElementById('testButton');
-    const copyMessage_test = document.getElementById('copyMessage');
-
-    testButton.addEventListener('click', () => {
-        try {
-            const originUrl = window.location.origin;
-            const indexUrl = `${originUrl}/index.html`;
-            navigator.clipboard.writeText(indexUrl);
-            copyMessage.style.display = 'block';
-            setTimeout(() => {
-                copyMessage.style.display = 'none';
-            }, 1000);
-    
-        } catch (err) {
-            console.error('URL 복사 실패:', err);
-            alert('URL 복사 실패! 브라우저가 지원하지 않을 수 있습니다.');
-        }
+    // ✅ **테스트 공유 버튼 클릭 이벤트 (index.html 링크)**
+    document.getElementById("testButton").addEventListener("click", () => {
+        const indexUrl = `${window.location.origin}/index.html`;
+        navigator.clipboard.writeText(indexUrl)
+            .then(() => alert("테스트 링크가 복사되었습니다!"))
+            .catch(err => console.error("복사 실패:", err));
     });
-
-
-
-    questionImageContainer.appendChild(questionImage);
-    resultImage.appendChild(image);
-
 });
