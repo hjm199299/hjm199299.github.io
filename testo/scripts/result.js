@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const { image, title, description, imageFit, imageStory, subtitle } = results[resultType];
 
         document.getElementById("resultImage").src = image;
-        document.getElementById("resultDescription").textContent = description;
+        document.getElementById("resultDescription").innerText = description;
         document.getElementById("styleImage").src = imageFit;
         document.getElementById("resultTip").textContent = title;
         document.getElementById("subTitle").textContent = subtitle;
