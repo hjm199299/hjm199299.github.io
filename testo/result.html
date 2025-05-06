@@ -183,6 +183,29 @@
           text-align: center;
           color: #333;
         }
+
+        .thread-link-wrapper {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-top: 16px;
+        }
+
+        .thread-link {
+          width: 245px;
+          height: 19px;
+          font-family: 'Pretendard', sans-serif;
+          font-size: 16px;
+          font-weight: normal;
+          letter-spacing: -0.64px;
+          text-align: center;
+          color: #444;
+          text-decoration: none;
+        }
+
+        .thread-link:hover {
+          text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -209,9 +232,12 @@
                 <canvas id="resultCanvas" width="375" height="600" style="display: none;"></canvas>
                 <button id="saveButton" class="result_button">이미지 저장</button>
             </div>
-            <a href="https://www.threads.com/@egentetonamnyeo?igshid=NTc4MTIwNjQ2YQ==" class="thread-link" target="_blank">
-            에겐테토별 매력어필 tip 더 보러가기 &gt;
-            </a>
+            <!-- 🔽 이 위치에 새 div 추가 -->
+            <div class="thread-link-wrapper">
+              <a href="https://www.threads.com/@egentetonamnyeo?igshid=NTc4MTIwNjQ2YQ==" class="thread-link" target="_blank">
+                에겐테토별 매력어필 tip 더 보러가기 &gt;
+              </a>
+            </div>
             <div class = "result_subtitle"><span>유형 설명</span></div>
             <!-- 결과 설명 -->
             <div id="resultDescription" class="auto-size-container"></div>
