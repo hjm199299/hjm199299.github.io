@@ -71,26 +71,21 @@ html, body {
     transform: scale(1.01); /* 약간 확대 */
 }
 
-.thread-link {
-  position: absolute;
-  top: 622px; /* 버튼의 margin-top: 550px + height: 56px + margin-between 16px */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
 
+.thread-link {
   width: 245px;
   height: 19px;
   font-family: 'Pretendard Variable', sans-serif;
   font-size: 16px;
   font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: -0.64px;
   text-align: center;
   color: #444;
   text-decoration: none;
+  display: block;
+  margin: 16px auto 0 auto; /* 중앙 정렬 + 위 여백 */
 }
+
 
 .thread-link:hover {
   text-decoration: underline;
