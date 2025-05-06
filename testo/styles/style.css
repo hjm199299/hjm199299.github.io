@@ -72,22 +72,21 @@ html, body {
 }
 
 
-.thread-link {
+.thread-link-start {
+  position: absolute;
+  top: 622px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 245px;
   height: 19px;
-  font-family: 'Pretendard Variable', sans-serif;
-  font-size: 16px;
-  font-weight: normal;
-  letter-spacing: -0.64px;
   text-align: center;
   color: #444;
+  font-size: 16px;
   text-decoration: none;
-  display: block;
-  margin: 16px auto 0 auto; /* 중앙 정렬 + 위 여백 */
 }
 
 
-.thread-link:hover {
+.thread-link-start:hover {
   text-decoration: underline;
 }
 
