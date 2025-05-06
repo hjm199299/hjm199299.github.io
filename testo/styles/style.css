@@ -71,6 +71,27 @@ html, body {
     transform: scale(1.01); /* 약간 확대 */
 }
 
+.thread-link {
+  display: block;
+  width: 245px;
+  height: 19px;
+  margin: 16.3px auto 0 auto;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.64px;
+  text-align: center;
+  color: #444;
+  text-decoration: none;
+}
+
+.thread-link:hover {
+  text-decoration: underline;
+}
+
 /* 버튼 클릭 효과 */
 .btn_main_active:active {
     transform: scale(0.95); /* 클릭 시 축소 */
